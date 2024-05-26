@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Clubs Management</title>
+</head>
+<body>
+    <h1>Student Clubs</h1>
+    <form action="/add" method="POST">
+        <input type="text" name="club_name" placeholder="Club Name" required>
+        <input type="text" name="core_team" placeholder="Core Team" required>
+        <input type="text" name="events" placeholder="Events" required>
+        <button type="submit">Add Club</button>
+    </form>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Core Team</th>
+            <th>Events</th>
+            <th>Actions</th>
+        </tr>
+        {% for club in clubs %}
+        <tr>
+            <td>{{ club[0] }}</td>
+            <td>{{ club[1] }}</td>
+            <td>{{ club[2] }}</td>
+            <td>{{ club[3] }}</td>
+            <td>
+                <form action="/update" method="POST" style="display:inline;">
+                    <input type="hidden" name="club_id" value="{{ club[0] }}">
+                    <input type="text" name="club_name" value="{{ club[1] }}" required>
+                    <input type="text" name="core_team" value="{{ club[2] }}" required>
+                    <input type="text" name="events" value="{{ club[3] }}" required>
+                    <button type="submit">Update</button>
+                </form>
+                <a href="/delete/{{ club[0] }}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
